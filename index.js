@@ -1,5 +1,5 @@
-const express =required("express");
-const fs=required("fs")
+const express = require("express");
+const fs= require("fs")
 const app=express();
 
 app.use(express.urlencoded({extended:true}));
@@ -11,7 +11,7 @@ app.post("/user/create",(req,res)=>{
 
         parsed.user=[...parsed.user,req.body];
 
-        fs.writefile("./db.json",JSON.stringify(parsed),{encoding: "utf-8"},(req,res)=>{
+        fs.writeFile("./db.json",JSON.stringify(parsed),{encoding: "utf-8"},(req,res)=>{
         res.status(201).send("User Created");
         })
     })

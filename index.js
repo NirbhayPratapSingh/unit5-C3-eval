@@ -21,12 +21,12 @@ app.post("/user/login",(req,res)=>{
     fs.readFile("./db.;json",{encoding: "utf-8"},(err,data)=>{ 
 
         const parsed =JSON.parsed(data); 
-        
+
         parsed.user=[...parsed.user,req.body];
     })
 })
-
-app.losten(8080);
+const PORT = process.env.PORT || 8080;
+app.listen(PORT);
 
 
 // NIRBHAY 

@@ -1,4 +1,3 @@
-
 const express = require("express");
 const app = express();
 const randtoken = require('rand-token');
@@ -11,12 +10,11 @@ app.use(express.json());
 app.post("/user/create", (req, res) => {
 
   fs.readFile("./db.json", { encoding: "utf-8" }, (err, data) => {
-    const myparse = JSON.parse(data);
+    const parsed = JSON.parse(data);
 
-    myparse.users = [...myparse.users, req.body];
+    parsed.users = [...parsed.users, req.body];
 
-    fs.writeFile("./db.json",JSON.stringify(myparse),{ encoding: "utf-8" },() => {
-        res.status(201).json({ status: "user created", id_of_user: req.body.id });
+    fs.writeFile("./db.json",JSON.stringify(parsed),{ encoding: "utf-8" },() => {res.status(201).json({ status: "user created", id_of_user: req.body.id });
       }
     );
   });
@@ -24,17 +22,17 @@ app.post("/user/create", (req, res) => {
 
 app.use("/user/login", (req, res, next) => {
     fs.readFile("./db.json", { encoding: "utf-8" }, (err, data) => {
-        const myparse = JSON.parse(data);
+        const parsed = JSON.parse(data);
         if (!req.body.username || !req.body.password) { return res.status(400).send("please provide username and password") }
-        for (var i = 0; i < myparse.users.length; i++) {
+        for (var i = 0; i < parsed.users.length; i++) {
 
-            if (myparse.users[i].password == req.body.password && myparse.users[i].username == req.body.username) 
+            if (parsed.users[i].password == req.body.password && parsed.users[i].username == req.body.username) 
             {
                 var token = randtoken.generate(10);
-                myparse.users[i].token = token;
+                parsed.users[i].token = token;
                 
         
-                return fs.writeFile( "./db.json",JSON.stringify(myparse),{ encoding: "utf-8" },() => {
+                return fs.writeFile( "./db.json",JSON.stringify(parsed),{ encoding: "utf-8" },() => {
                     res.status(201).json({ status: "Login Successful", token: token });
                     }
                 );
@@ -50,8 +48,9 @@ app.use("/user/login", (req, res, next) => {
 app.post("/user/login", (req, res) => {
     fs.readFile("./db.json", { encoding: "utf-8" }, (err, data) => {
 
-        const myparse = JSON.parse(data);
-        myparse.users = [...myparse.users, req.body];
+        const parsed = JSON.parse(data);
+
+        parsed.users = [...parsed.users, req.body];
     })
 
     res.send("user created");
@@ -61,14 +60,14 @@ app.post("/user/logout", (req, res) => {
     const { apiKey } = req.query;
     fs.readFile("./db.json", { encoding: "utf-8" }, (err, data) => {
 
-        const myparse = JSON.parse(data);
-        myparse.users = myparse.users.map((oneuser) => {
+        const parsed = JSON.parse(data);
+        parsed.users = parsed.users.map((oneuser) => {
 
             if (oneuser.token == apiKey)
              {
                 delete oneuser.token;
 
-                return fs.writeFile("./db.json", JSON.stringify(myparse), { encoding: "utf-8" },() => {
+                return fs.writeFile("./db.json", JSON.stringify(parsed), { encoding: "utf-8" },() => {
                         res.status(201).json({ status: "logout successfully" });
                     }
                 );
@@ -77,6 +76,6 @@ app.post("/user/logout", (req, res) => {
     })
 })
 
-const PORT=process.env.PORT || 8080;
 
+const PORT=process.env.PORT || 8080;
 app.listen(PORT)

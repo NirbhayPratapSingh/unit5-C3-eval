@@ -7,17 +7,21 @@ app.use(express.json());
 
 app.post("/user/create",(req,res)=>{
     fs.readFile("./db.json",{encoding: "ust-8"},(err,data)=>{
+
         const parsed =JSON.parse(data);
 
         parsed.user=[...parsed.user,req.body];
 
         fs.writeFile("./db.json",JSON.stringify(parsed),{encoding: "utf-8"},(req,res)=>{
+
         res.status(201).send("User Created");
+        
         })
     })
 });
 
 app.post("/user/login",(req,res)=>{
+
     fs.readFile("./db.json",{encoding: "utf-8"},(err,data)=>{ 
 
         const parsed =JSON.parsed(data); 
@@ -26,7 +30,8 @@ app.post("/user/login",(req,res)=>{
     })
 })
 const PORT = process.env.PORT || 8080;
+
 app.listen(PORT);
 
 
-// NIRBHAY Pratap
+// NIRBHAY Pratap singh

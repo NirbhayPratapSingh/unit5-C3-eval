@@ -1,0 +1,26 @@
+{
+  "name": "unit5-c3-eval",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NirbhayPratapSingh/unit5-C3-eval.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NirbhayPratapSingh/unit5-C3-eval/issues"
+  },
+  "homepage": "https://github.com/NirbhayPratapSingh/unit5-C3-eval#readme",
+  "dependencies": {
+    "@jest/globals": "^28.1.0",
+    "axios": "^0.27.2",
+    "express": "^4.18.1",
+    "nodemon": "^2.0.16"
+  }
+}

@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const randtoken = require('rand-token');
+const { v4: randtoken  } = require('uuid');
 const fs = require("fs");
 
 // created middleware
